@@ -26,6 +26,8 @@ dependencyManagement {
 	}
 }
 
+val mockitoAgent = configurations.create("mockitoAgent")
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -34,15 +36,31 @@ dependencies {
 	implementation("io.vertx:vertx-pg-client")
 	implementation("io.vertx:vertx-rx-java3:${vertxVersion}")
 
+	compileOnly("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok")
+
 	implementation("org.flywaydb:flyway-core")
 	implementation("org.flywaydb:flyway-database-postgresql")
 	runtimeOnly("org.postgresql:postgresql")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.vertx:vertx-junit5")
+	testImplementation("io.vertx:vertx-junit5-rx-java3")
+
+	mockitoAgent("org.mockito:mockito-core") { isTransitive = false }
+}
+
+tasks.withType<JavaCompile> {
+	options.compilerArgs.addAll(arrayOf("-Xlint:deprecation"))
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	jvmArgs = listOf(
+		"-javaagent:${mockitoAgent.asPath}"
+	)
 }
 
 spotless {
