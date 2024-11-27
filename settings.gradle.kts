@@ -1,1 +1,1 @@
-rootProject.name = "rxjava-db-demo"
+rootProject.name = "rxjava-sandbox"

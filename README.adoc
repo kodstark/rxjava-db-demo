@@ -1,0 +1,3 @@
+= rxjava sandbox
+
+Project provides sandbox to test various features in rxjava, especially validating back pressure when integrating with files, network, database.

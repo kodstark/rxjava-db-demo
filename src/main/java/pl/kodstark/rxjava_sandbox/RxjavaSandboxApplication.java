@@ -1,13 +1,13 @@
-package pl.kodstark.rxjava_db_demo;
+package pl.kodstark.rxjava_sandbox;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RxjavaDbDemoApplication {
+public class RxjavaSandboxApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RxjavaDbDemoApplication.class, args);
+		SpringApplication.run(RxjavaSandboxApplication.class, args);
 	}
 
 }
