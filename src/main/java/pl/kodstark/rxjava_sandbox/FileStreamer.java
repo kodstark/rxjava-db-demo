@@ -4,7 +4,9 @@ import io.vertx.core.file.FileSystem;
 import io.vertx.core.file.OpenOptions;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class FileStreamer {
 
   private final RoutingContext context;
@@ -28,6 +30,7 @@ public class FileStreamer {
           if (result.succeeded()) {
             var file = result.result();
             HttpServerResponse response = context.response();
+            log.info("Streaming a file {}", filePath);
             response.setStatusCode(200).putHeader("Content-Type", "text/plain").setChunked(true);
             file.pipeTo(response);
           } else {

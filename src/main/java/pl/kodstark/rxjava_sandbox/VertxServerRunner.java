@@ -17,27 +17,19 @@ public class VertxServerRunner implements CommandLineRunner {
   private Vertx vertx;
 
   @Override
-  public void run(String... args) {
+  public void run(String... args) throws Exception {
     vertx = Vertx.vertx();
     CountDownLatch latch = new CountDownLatch(1);
     vertx.deployVerticle(new VertxServer(listenPort), ar -> latch.countDown());
-    try {
-      latch.await(30_000, TimeUnit.MILLISECONDS);
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    }
+    latch.await(30_000, TimeUnit.MILLISECONDS);
   }
 
   @PreDestroy
-  public void stop() {
+  public void stop() throws Exception {
     if (vertx != null) {
       CountDownLatch latch = new CountDownLatch(1);
       vertx.close(ar -> latch.countDown());
-      try {
-        latch.await(30_000, TimeUnit.MILLISECONDS);
-      } catch (InterruptedException e) {
-        throw new RuntimeException(e);
-      }
+      latch.await(30_000, TimeUnit.MILLISECONDS);
     }
   }
 }

@@ -33,6 +33,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 
 	implementation("io.vertx:vertx-web")
+	implementation("io.vertx:vertx-web-client")
 	implementation("io.vertx:vertx-pg-client")
 	implementation("io.vertx:vertx-rx-java3:${vertxVersion}")
 
@@ -48,6 +49,9 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.vertx:vertx-junit5")
 	testImplementation("io.vertx:vertx-junit5-rx-java3")
+
+	testCompileOnly("org.projectlombok:lombok")
+	testAnnotationProcessor("org.projectlombok:lombok")
 
 	mockitoAgent("org.mockito:mockito-core") { isTransitive = false }
 }
